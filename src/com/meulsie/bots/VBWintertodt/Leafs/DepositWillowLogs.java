@@ -22,10 +22,10 @@ public class DepositWillowLogs extends LeafTask {
     @Override
     public void execute() {
         bot.logText("Depositing.");
-        if (!Inventory.containsOnly(bot.getAxePattern())) {
-            if (Bank.depositAllExcept(bot.getAxePattern())) {
-                bot.logText("Depositing all expect axes");
-                Execution.delayUntil(() -> Inventory.containsOnly(bot.getAxePattern()), 100, 5000);
+        if (!Inventory.containsOnly(bot.getInventoryItems())) {
+            if (Bank.depositAllExcept(bot.getInventoryItems())) {
+                bot.logText("Depositing all except required inventory items");
+                Execution.delayUntil(() -> Inventory.containsOnly(bot.getInventoryItems()), 100, 5000);
             } else {
                 bot.logText("Failed to deposit all expect axes");
             }

@@ -19,7 +19,6 @@ import com.runemate.game.api.script.Execution;
 import com.runemate.game.api.script.framework.listeners.InventoryListener;
 import com.runemate.game.api.script.framework.tree.TreeBot;
 import com.runemate.game.api.script.framework.tree.TreeTask;
-
 import java.util.regex.Pattern;
 
 /**
@@ -42,7 +41,8 @@ public class VBWintertodt extends TreeBot implements InventoryListener {
     public IsFoodInInventory isfoodinventory;
     GoToWintertodtArea gotowintertodtarea;
 
-    private static final Area WintertodtArea = new Area.Rectangular(new Coordinate(1608, 4029, 0), new Coordinate(1652, 3967, 0));
+    private static final Area WintertodtEntranceArea = new Area.Rectangular(new Coordinate(1628, 3959, 0), new Coordinate(1631, 3956, 0));
+    private static final Area WintertodtArea = new Area.Rectangular(new Coordinate(1613, 4001, 0), new Coordinate(1648, 3967, 0));
     private static final Area BankArea = new Area.Rectangular(new Coordinate(3092, 3245, 0), new Coordinate(3095, 3241, 0));
     private static final Area LumbridgeArea = new Area.Rectangular(new Coordinate(3217, 3212, 0), new Coordinate(3226, 3225, 0));
     private static final Coordinate bankCoordinate = new Coordinate(3091, 3245, 0);
@@ -50,13 +50,14 @@ public class VBWintertodt extends TreeBot implements InventoryListener {
     private boolean LogoutOnStop = false;
     private int woodCuttingXPBefore;
     private Pattern axePattern = Pattern.compile("axe");
-    private String[] Axes = new String[]{"Bronze axe", "Iron axe", "Steel axe", "Black axe", "Mithril axe", "Adamant axe", "Rune axe", "Dragon axe", "Infernal axe"};
+    //private String[] Axes = new String[]{"Bronze axe", "Iron axe", "Steel axe", "Black axe", "Mithril axe", "Adamant axe", "Rune axe", "Dragon axe", "Infernal axe"};
+    private String[] InventoryItems = new String[]{"Bronze axe", "Iron axe", "Steel axe", "Black axe", "Mithril axe", "Adamant axe", "Rune axe", "Dragon axe", "Infernal axe","Hammer", "Knife", "Tinderbox", getFoodName()};
     private String treeName;
     private String foodName;
 
     @Override
     public void onStart(String... a) {
-        logText("Starting bot ...");
+        logText("Starting bot ...opening text");
         setTreeName("Bruma roots");
         setFoodName("Cake");
         LogoutOnStop = true;
@@ -143,6 +144,10 @@ public class VBWintertodt extends TreeBot implements InventoryListener {
         return WintertodtArea;
     }
 
+    public Area getWintertodtEntranceArea() {
+        return WintertodtEntranceArea;
+    }
+
     public int getWoodCuttingXPBefore() {
         return woodCuttingXPBefore;
     }
@@ -167,9 +172,9 @@ public class VBWintertodt extends TreeBot implements InventoryListener {
         return InWintertodtArea;
     }
 
-    public String[] getAxes() {
-        return Axes;
-    }
+    //public String[] getAxes() { return Axes; }
+
+    public String[] getInventoryItems(){return InventoryItems;}
 
     public Pattern getAxePattern() {
         return axePattern;

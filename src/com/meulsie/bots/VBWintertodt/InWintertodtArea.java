@@ -26,11 +26,13 @@ public class InWintertodtArea extends BranchTask {
 
     @Override
     public TreeTask failureTask() {
+        bot.logText("Not in Wintertodt");
         return bot.gotowintertodtarea;
     }
 
     @Override
     public TreeTask successTask() {
+        bot.logText("We are in Wintertodt");
         return bot.ishealthlow;
     }
 }

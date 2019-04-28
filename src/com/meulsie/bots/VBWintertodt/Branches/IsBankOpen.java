@@ -31,5 +31,5 @@ public class IsBankOpen extends BranchTask {
     @Override
     public TreeTask successTask() {
         return bot.depositwillowlogs;
-    }
+    } //deposit supply crate and withdraw food + required items (knife, hammer, axe, tinderbox)
 }

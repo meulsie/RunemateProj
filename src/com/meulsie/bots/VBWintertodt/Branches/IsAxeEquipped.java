@@ -20,7 +20,7 @@ public class IsAxeEquipped extends BranchTask {
 
     @Override
     public boolean validate() {
-        return Equipment.containsAnyOf(bot.getAxePattern()) || Inventory.contains(bot.getAxePattern());
+        return Equipment.containsAnyOf(bot.getAxePattern()) || Inventory.contains(bot.getAxePattern()); //Does inventory/Player contain Axe, Tinder box, knife, hammer and FOOD
     }
 
     @Override
