@@ -3,8 +3,10 @@ package com.meulsie.bots.ScrubFighter;
 import com.meulsie.bots.ScrubFighter.Branches.IsBankOpen;
 import com.runemate.game.api.hybrid.Environment;
 import com.runemate.game.api.hybrid.RuneScape;
+import com.runemate.game.api.hybrid.entities.Player;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
 import com.runemate.game.api.hybrid.local.hud.interfaces.DepositBox;
+import com.runemate.game.api.hybrid.region.Players;
 import com.runemate.game.api.script.Execution;
 import com.runemate.game.api.script.framework.tree.TreeBot;
 import com.runemate.game.api.script.framework.tree.TreeTask;
@@ -25,9 +27,6 @@ public class ScrubFighter extends TreeBot {
 
     @Override
     public TreeTask createRootTask(){
-
-        //Branches
-        isbankopen = new IsBankOpen();
 
         return new IsHealthLow();
     }
@@ -88,4 +87,6 @@ public class ScrubFighter extends TreeBot {
             logText("Output text is null or empty");
         }
     }
+
+    public Player getPlayer() { return Players.getLocal(); }
 }
