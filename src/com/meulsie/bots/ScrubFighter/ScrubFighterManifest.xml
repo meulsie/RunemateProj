@@ -1,0 +1,24 @@
+<manifest>
+    <main-class>com.meulsie.bots.ScrubFighter.ScrubFighter</main-class>
+    <name>Meulsie's ScrubFighter</name>
+    <tag-line>Fights NPC's suitable for scrubs</tag-line><!--Max of 50 chars-->
+    <description>Fights a multitude of NPC's suitable for new characters</description><!--Max of 110 chars-->
+    <version>0.0.1</version>
+    <compatibility>
+        <game>OSRS</game>
+        <!--Can be used if you absolutely need to disable DarkScape (highly discouraged)-->
+        <!--<disable-game>DARK</disable-game>-->
+    </compatibility>
+    <categories>
+        <category>COMBAT</category>
+    </categories>
+    <!--Required to publish on the bot store-->
+    <internal-id>ScrubFighter</internal-id>
+    <!--The rest are optional-->
+    <open-source>true</open-source>
+    <hidden>false</hidden> <!--If you need to hide it from the bot store for maintenance-->
+    <access>public</access>
+    <tags>
+        <tag>Tree</tag>
+    </tags>
+</manifest>
