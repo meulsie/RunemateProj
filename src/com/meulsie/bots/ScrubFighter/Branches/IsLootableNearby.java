@@ -1,6 +1,7 @@
 package com.meulsie.bots.ScrubFighter.Branches;
 
 import com.meulsie.bots.ScrubFighter.Leafs.LootItems;
+import com.meulsie.bots.ScrubFighter.ScrubFighter;
 import com.runemate.game.api.script.framework.tree.BranchTask;
 import com.runemate.game.api.script.framework.tree.TreeTask;
 
@@ -11,8 +12,9 @@ import com.runemate.game.api.script.framework.tree.TreeTask;
  */
 public class IsLootableNearby extends BranchTask {
 
-    private LootItems lootitems = new LootItems();
-    private IsPlayerInFightArea isplayerinfightarea = new IsPlayerInFightArea();
+    private ScrubFighter bot;
+
+    public IsLootableNearby(ScrubFighter bot){this.bot = bot;}
 
     @Override
     public boolean validate() {
@@ -21,11 +23,11 @@ public class IsLootableNearby extends BranchTask {
 
     @Override
     public TreeTask failureTask() {
-        return isplayerinfightarea;
+        return bot.isplayerinfightarea;
     }
 
     @Override
     public TreeTask successTask() {
-        return lootitems;
+        return bot.lootitems;
     }
 }

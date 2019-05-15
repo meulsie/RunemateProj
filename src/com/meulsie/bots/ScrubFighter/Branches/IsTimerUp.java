@@ -1,8 +1,11 @@
 package com.meulsie.bots.ScrubFighter.Branches;
 
-import com.meulsie.bots.ScrubFighter.Leafs.ChooseNewNPC;
+import com.meulsie.bots.ScrubFighter.ScrubFighter;
+import com.runemate.game.api.hybrid.util.calculations.Random;
 import com.runemate.game.api.script.framework.tree.BranchTask;
 import com.runemate.game.api.script.framework.tree.TreeTask;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * NOTES:
@@ -10,21 +13,24 @@ import com.runemate.game.api.script.framework.tree.TreeTask;
  */
 public class IsTimerUp extends BranchTask {
 
-    private ChooseNewNPC choosenewnpc = new ChooseNewNPC();
-    private IsLootableNearby islootablenearby = new IsLootableNearby();
+    private ScrubFighter bot;
+
+    public IsTimerUp(ScrubFighter bot) {
+        this.bot = bot;
+    }
 
     @Override
     public boolean validate() {
-        return false;
+        return bot.getStopWatchActivity().getRuntime(TimeUnit.MINUTES) > (30 + Random.nextLong(-5, 10));
     }
 
     @Override
     public TreeTask failureTask() {
-        return islootablenearby;
+        return bot.islootablenearby;
     }
 
     @Override
     public TreeTask successTask() {
-        return choosenewnpc;
+        return bot.choosenewnpc;
     }
 }

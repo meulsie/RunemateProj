@@ -1,12 +1,16 @@
 package com.meulsie.bots.ScrubFighter;
 
-import com.meulsie.bots.ScrubFighter.Branches.IsBankOpen;
+import com.meulsie.bots.ScrubFighter.Branches.*;
+import com.meulsie.bots.ScrubFighter.Leafs.*;
 import com.runemate.game.api.hybrid.Environment;
 import com.runemate.game.api.hybrid.RuneScape;
 import com.runemate.game.api.hybrid.entities.Player;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
 import com.runemate.game.api.hybrid.local.hud.interfaces.DepositBox;
+import com.runemate.game.api.hybrid.local.hud.interfaces.Inventory;
+import com.runemate.game.api.hybrid.local.hud.interfaces.SpriteItem;
 import com.runemate.game.api.hybrid.region.Players;
+import com.runemate.game.api.hybrid.util.StopWatch;
 import com.runemate.game.api.script.Execution;
 import com.runemate.game.api.script.framework.tree.TreeBot;
 import com.runemate.game.api.script.framework.tree.TreeTask;
@@ -14,11 +18,28 @@ import com.runemate.game.api.script.framework.tree.TreeTask;
 public class ScrubFighter extends TreeBot {
 
     public IsBankOpen isbankopen;
-    private boolean LogoutOnStop = false;
+    public IsFoodInInventory isfoodininventory;
+    public IsLootableNearby islootablenearby;
+    public IsPlayerInCombat isplayerincombat;
+    public IsPlayerInFightArea isplayerinfightarea;
+    public IsTimerUp istimerup;
+    public AttackTarget attacktarget;
+    public ChooseNewNPC choosenewnpc;
+    public EatFood eatfood;
+    public LootItems lootitems;
+    public WaitForFight waitforfight;
+    public WalkToBank walktobank;
+    public WalkToFightArea walktofightarea;
+    public WithdrawFood withdrawfood;
 
+    private boolean LogoutOnStop = false;
+    private StopWatch stopWatchTotal = new StopWatch();
+    private StopWatch stopWatchActivity = new StopWatch();
 
     @Override
     public void onStart(String... a) {
+        stopWatchTotal.start();
+        stopWatchActivity.start();
         logText("starting ScrubFighter");
         LogoutOnStop = true;
         setLoopDelay(100, 300);
@@ -27,8 +48,25 @@ public class ScrubFighter extends TreeBot {
 
     @Override
     public TreeTask createRootTask(){
+        //Branches
+        isbankopen = new IsBankOpen(this);
+        isfoodininventory = new IsFoodInInventory(this);
+        islootablenearby = new IsLootableNearby(this);
+        isplayerincombat = new IsPlayerInCombat(this);
+        isplayerinfightarea = new IsPlayerInFightArea(this);
+        istimerup = new IsTimerUp(this);
 
-        return new IsHealthLow();
+        //Leafs
+        attacktarget = new AttackTarget(this);
+        choosenewnpc = new ChooseNewNPC(this);
+        eatfood = new EatFood(this);
+        lootitems = new LootItems(this);
+        waitforfight = new WaitForFight(this);
+        walktobank = new WalkToBank(this);
+        walktofightarea = new WalkToFightArea(this);
+        withdrawfood = new WithdrawFood(this);
+
+        return new IsHealthLow(this);
     }
 
     @Override
@@ -89,4 +127,11 @@ public class ScrubFighter extends TreeBot {
     }
 
     public Player getPlayer() { return Players.getLocal(); }
+
+    public SpriteItem getFood() { return Inventory.newQuery().actions("Eat").results().random(); }
+
+    public StopWatch getStopWatchTotal(){ return stopWatchTotal; }
+
+    public StopWatch getStopWatchActivity(){ return stopWatchActivity; }
+
 }

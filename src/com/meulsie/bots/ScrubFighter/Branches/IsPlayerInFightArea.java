@@ -2,6 +2,7 @@ package com.meulsie.bots.ScrubFighter.Branches;
 
 import com.meulsie.bots.ScrubFighter.Leafs.AttackTarget;
 import com.meulsie.bots.ScrubFighter.Leafs.WalkToFightArea;
+import com.meulsie.bots.ScrubFighter.ScrubFighter;
 import com.runemate.game.api.script.framework.tree.BranchTask;
 import com.runemate.game.api.script.framework.tree.TreeTask;
 
@@ -11,8 +12,11 @@ import com.runemate.game.api.script.framework.tree.TreeTask;
  */
 public class IsPlayerInFightArea extends BranchTask {
 
-    private AttackTarget attacktarget = new AttackTarget();
-    private WalkToFightArea walktofightarea = new WalkToFightArea();
+    private ScrubFighter bot;
+
+    public IsPlayerInFightArea(ScrubFighter bot) {
+        this.bot = bot;
+    }
 
     @Override
     public boolean validate() {
@@ -21,11 +25,11 @@ public class IsPlayerInFightArea extends BranchTask {
 
     @Override
     public TreeTask failureTask() {
-        return walktofightarea;
+        return bot.walktofightarea;
     }
 
     @Override
     public TreeTask successTask() {
-        return attacktarget;
+        return bot.attacktarget;
     }
 }

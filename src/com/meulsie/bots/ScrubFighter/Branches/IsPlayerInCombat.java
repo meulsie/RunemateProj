@@ -1,6 +1,7 @@
 package com.meulsie.bots.ScrubFighter.Branches;
 
 import com.meulsie.bots.ScrubFighter.Leafs.WaitForFight;
+import com.meulsie.bots.ScrubFighter.ScrubFighter;
 import com.runemate.game.api.script.framework.tree.BranchTask;
 import com.runemate.game.api.script.framework.tree.TreeTask;
 
@@ -10,21 +11,22 @@ import com.runemate.game.api.script.framework.tree.TreeTask;
  */
 public class IsPlayerInCombat extends BranchTask {
 
-    private WaitForFight waitforfight = new WaitForFight();
-    private IsTimerUp istimerup = new IsTimerUp();
+    private ScrubFighter bot;
+
+    public IsPlayerInCombat(ScrubFighter bot){this.bot = bot;}
 
     @Override
     public boolean validate() {
-        return false;
+        return bot.getPlayer() != null && bot.getPlayer().getTarget() != null;
     }
 
     @Override
     public TreeTask failureTask() {
-        return istimerup;
+        return bot.istimerup;
     }
 
     @Override
     public TreeTask successTask() {
-        return waitforfight;
+        return bot.waitforfight;
     }
 }
