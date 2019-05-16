@@ -24,7 +24,7 @@ public class IsHealthLow extends BranchTask {
 
     @Override
     public boolean validate() {
-        return Health.getCurrentPercent() < 60;
+        return Health.getCurrentPercent() < 95;
     }
 
     @Override

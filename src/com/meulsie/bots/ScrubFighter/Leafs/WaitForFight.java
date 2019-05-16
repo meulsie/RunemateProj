@@ -19,6 +19,7 @@ public class WaitForFight extends LeafTask {
     @Override
     public void execute() {
         //put stuff in here
+        bot.logText("We are in battle!");
         Execution.delay(200, 1500);
     }
 }

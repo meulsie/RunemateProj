@@ -39,7 +39,14 @@ public class ScrubFighter extends TreeBot {
     private StopWatch stopWatchActivity = new StopWatch();
 
     private static final Area BankArea = new Area.Rectangular(new Coordinate(3206, 3219, 2), new Coordinate(3209, 3217, 2));
-    private static final Area SwampArea = new Area.Rectangular(new Coordinate(3194, 3194, 0), new Coordinate(3213, 3186, 0));
+    private static final Area SwampArea = new Area.Polygonal(
+            new Coordinate(3181, 3196, 0),
+            new Coordinate(3223, 3197, 0),
+            new Coordinate(3239, 3185, 0),
+            new Coordinate(3233, 3159, 0),
+            new Coordinate(3174, 3154, 0),
+            new Coordinate(3158, 3198, 0)
+    );
 
     @Override
     public void onStart(String... a) {
@@ -143,5 +150,5 @@ public class ScrubFighter extends TreeBot {
 
     public Area getBankArea() { return BankArea; }
 
-    public String getTarget(){ return "Big frog"; }
+    public String getTarget(){ return "Giant frog"; }
 }

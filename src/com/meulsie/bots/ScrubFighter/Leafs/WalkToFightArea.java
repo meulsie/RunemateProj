@@ -22,10 +22,12 @@ public class WalkToFightArea extends LeafTask {
     @Override
     public void execute() {
         if (bot.getPlayer() != null && !bot.getFightArea().contains(bot.getPlayer())){
+            bot.logText("We aren't in fight area");
             fightCoord = bot.getFightArea().getRandomCoordinate();
             if (bot.getPlayer() != null && fightCoord != null){
                 WebPath path = Traversal.getDefaultWeb().getPathBuilder().buildTo(fightCoord);
                 if (path != null){
+                    bot.logText("moving to fight area");
                     path.step();
                 }
             }

@@ -23,18 +23,26 @@ public class AttackTarget extends LeafTask {
     @Override
     public void execute() {
         Npc target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").targeting(bot.getPlayer()).results().nearest();
+        //Npc target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").filter(i -> i.getTarget() == null).results().nearest();
         if (target == null){
             bot.logText("No target found that was already attacking me, finding a new target");
             target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").filter(i -> i.getTarget() == null).results().nearest();
-            if (target != null){
-                if(!target.isVisible()){
-                    Camera.turnTo(target);
-                }
-                if(!bot.getPlayer().isMoving() && target.isVisible()){
+
+        }
+        if (target != null){
+            if(!target.isVisible()){
+                Camera.turnTo(target);
+            }
+            if(!bot.getPlayer().isMoving()){
+                if (target.isVisible()){
                     if(target.interact("Attack")){
-                        Execution.delayWhile(() -> bot.getPlayer().getTarget() != null, 100, 3000);
+                        bot.logText("Target found, visible and attacking");
+                        //Execution.delay(1500);
+                        //Execution.delayWhile(() -> bot.getPlayer().getTarget() != null || bot.getPlayer().isMoving(), 3000, 7000);
+                        Execution.delayUntil(() -> bot.getPlayer().isMoving(), 1000, 3000);
                     }
                 } else {
+                    bot.logText("target is found but not visible so Bresenham to target location");
                     BresenhamPath path = BresenhamPath.buildTo(target);
                     if (path != null){
                         path.step();

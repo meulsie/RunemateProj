@@ -2,11 +2,9 @@ package com.meulsie.bots.ScrubFighter.Leafs;
 
 import com.meulsie.bots.ScrubFighter.ScrubFighter;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
-import com.runemate.game.api.hybrid.location.Area;
 import com.runemate.game.api.hybrid.location.Coordinate;
 import com.runemate.game.api.hybrid.location.navigation.Traversal;
 import com.runemate.game.api.hybrid.location.navigation.web.WebPath;
-import com.runemate.game.api.hybrid.location.navigation.web.WebPathBuilder;
 import com.runemate.game.api.script.framework.tree.LeafTask;
 
 /**
