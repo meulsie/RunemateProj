@@ -20,7 +20,7 @@ public class IsPlayerInFightArea extends BranchTask {
 
     @Override
     public boolean validate() {
-        return false;
+        return bot.getFightArea().contains(bot.getPlayer());
     }
 
     @Override

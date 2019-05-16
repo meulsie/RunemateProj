@@ -9,6 +9,8 @@ import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
 import com.runemate.game.api.hybrid.local.hud.interfaces.DepositBox;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Inventory;
 import com.runemate.game.api.hybrid.local.hud.interfaces.SpriteItem;
+import com.runemate.game.api.hybrid.location.Area;
+import com.runemate.game.api.hybrid.location.Coordinate;
 import com.runemate.game.api.hybrid.region.Players;
 import com.runemate.game.api.hybrid.util.StopWatch;
 import com.runemate.game.api.script.Execution;
@@ -35,6 +37,9 @@ public class ScrubFighter extends TreeBot {
     private boolean LogoutOnStop = false;
     private StopWatch stopWatchTotal = new StopWatch();
     private StopWatch stopWatchActivity = new StopWatch();
+
+    private static final Area BankArea = new Area.Rectangular(new Coordinate(3206, 3219, 2), new Coordinate(3209, 3217, 2));
+    private static final Area SwampArea = new Area.Rectangular(new Coordinate(3194, 3194, 0), new Coordinate(3213, 3186, 0));
 
     @Override
     public void onStart(String... a) {
@@ -134,4 +139,7 @@ public class ScrubFighter extends TreeBot {
 
     public StopWatch getStopWatchActivity(){ return stopWatchActivity; }
 
+    public Area getFightArea() { return SwampArea; }
+
+    public Area getBankArea() { return BankArea; }
 }

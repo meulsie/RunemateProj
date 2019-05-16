@@ -20,5 +20,6 @@ public class WithdrawFood extends LeafTask {
     public void execute() {
         if (bot.getPlayer() != null)
             Bank.withdraw("Shrimp", 20);
+            Bank.close();
     }
 }
