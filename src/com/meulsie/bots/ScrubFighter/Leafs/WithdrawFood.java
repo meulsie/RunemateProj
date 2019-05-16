@@ -19,7 +19,7 @@ public class WithdrawFood extends LeafTask {
     @Override
     public void execute() {
         if (bot.getPlayer() != null)
-            Bank.withdraw("Shrimp", 20);
+            Bank.withdraw("Trout", 10);
             Bank.close();
     }
 }

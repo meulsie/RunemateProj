@@ -142,4 +142,6 @@ public class ScrubFighter extends TreeBot {
     public Area getFightArea() { return SwampArea; }
 
     public Area getBankArea() { return BankArea; }
+
+    public String getTarget(){ return "Big frog"; }
 }

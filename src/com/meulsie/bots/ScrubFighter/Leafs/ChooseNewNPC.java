@@ -19,7 +19,7 @@ public class ChooseNewNPC extends LeafTask {
 
     @Override
     public void execute() {
-        //Choose next NPC
+        bot.getTarget(); //This is temporary, will need to get a target from enum then set a target in here in future
         bot.getStopWatchActivity().reset();
     }
 }

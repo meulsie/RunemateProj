@@ -17,9 +17,9 @@ public class EatFood extends LeafTask {
 
     @Override
     public void execute() {
-        if (bot.getPlayer() != null){
+        if (bot.getPlayer() != null && bot.getFood() != null){
             if (bot.getFood().interact("Eat")){
-                bot.logText("eating food");
+                bot.logText("eating food succesfully");
             }
         }
     }
