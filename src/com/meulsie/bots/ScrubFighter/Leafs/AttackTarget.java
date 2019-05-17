@@ -22,13 +22,7 @@ public class AttackTarget extends LeafTask {
 
     @Override
     public void execute() {
-        Npc target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").targeting(bot.getPlayer()).results().nearest();
-        //Npc target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").filter(i -> i.getTarget() == null).results().nearest();
-        if (target == null){
-            bot.logText("No target found that was already attacking me, finding a new target");
-            target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").filter(i -> i.getTarget() == null).results().nearest();
-
-        }
+        Npc target = Npcs.newQuery().names(bot.getTarget()).actions("Attack").filter(i -> i.getHealthGauge() == null && i.getAnimationId() == -1).results().nearest();
         if (target != null){
             if(!target.isVisible()){
                 Camera.turnTo(target);
@@ -37,8 +31,6 @@ public class AttackTarget extends LeafTask {
                 if (target.isVisible()){
                     if(target.interact("Attack")){
                         bot.logText("Target found, visible and attacking");
-                        //Execution.delay(1500);
-                        //Execution.delayWhile(() -> bot.getPlayer().getTarget() != null || bot.getPlayer().isMoving(), 3000, 7000);
                         Execution.delayUntil(() -> bot.getPlayer().isMoving(), 1000, 3000);
                     }
                 } else {
@@ -48,6 +40,12 @@ public class AttackTarget extends LeafTask {
                         path.step();
                     }
                 }
+            }
+        } else {
+            bot.logText("Moving around to find a target");
+            BresenhamPath searchPath = BresenhamPath.buildTo(bot.getFightArea().getRandomCoordinate());
+            if(searchPath != null && bot.getPlayer() != null){
+                searchPath.step();
             }
         }
     }

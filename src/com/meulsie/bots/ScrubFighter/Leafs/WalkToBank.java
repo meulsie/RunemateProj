@@ -22,7 +22,7 @@ public class WalkToBank extends LeafTask {
 
     @Override
     public void execute() {
-        if (bot.getPlayer() != null && !bot.getPlayer().isMoving()){
+        if (bot.getPlayer() != null){ //add a !player is moving check if bot spam walks here
             if(bot.getBankArea().contains(bot.getPlayer())){
                 Bank.open();
             } else {
@@ -35,7 +35,8 @@ public class WalkToBank extends LeafTask {
                 }
             }
         }
-        else
+        else {
             bot.logText("WalkToBank: player is null or moving");
+        }
     }
 }

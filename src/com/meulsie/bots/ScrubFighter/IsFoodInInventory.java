@@ -1,4 +1,4 @@
-package com.meulsie.bots.ScrubFighter.Branches;
+package com.meulsie.bots.ScrubFighter;
 
 import com.meulsie.bots.ScrubFighter.Leafs.EatFood;
 import com.meulsie.bots.ScrubFighter.ScrubFighter;
@@ -16,22 +16,20 @@ public class IsFoodInInventory extends BranchTask {
 
     private ScrubFighter bot;
 
-    public IsFoodInInventory(ScrubFighter bot) {
+    IsFoodInInventory(ScrubFighter bot) {
         this.bot = bot;
     }
 
     @Override
     public boolean validate() {
-        return bot.getFood() != null;
+        return bot.getFood() == null && bot.getFoodReq();
     }
 
     @Override
-    public TreeTask failureTask() {
-        return bot.isbankopen;
-    }
+    public TreeTask failureTask() { return bot.ishealthlow; }
 
     @Override
     public TreeTask successTask() {
-        return bot.eatfood;
+        return bot.isbankopen;
     }
 }

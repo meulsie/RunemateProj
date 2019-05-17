@@ -5,6 +5,7 @@ import com.meulsie.bots.ScrubFighter.Leafs.*;
 import com.runemate.game.api.hybrid.Environment;
 import com.runemate.game.api.hybrid.RuneScape;
 import com.runemate.game.api.hybrid.entities.Player;
+import com.runemate.game.api.hybrid.entities.definitions.ItemDefinition;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Bank;
 import com.runemate.game.api.hybrid.local.hud.interfaces.DepositBox;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Inventory;
@@ -17,10 +18,13 @@ import com.runemate.game.api.script.Execution;
 import com.runemate.game.api.script.framework.tree.TreeBot;
 import com.runemate.game.api.script.framework.tree.TreeTask;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ScrubFighter extends TreeBot {
 
     public IsBankOpen isbankopen;
-    public IsFoodInInventory isfoodininventory;
+    public IsHealthLow ishealthlow;
     public IsLootableNearby islootablenearby;
     public IsPlayerInCombat isplayerincombat;
     public IsPlayerInFightArea isplayerinfightarea;
@@ -37,6 +41,8 @@ public class ScrubFighter extends TreeBot {
     private boolean LogoutOnStop = false;
     private StopWatch stopWatchTotal = new StopWatch();
     private StopWatch stopWatchActivity = new StopWatch();
+
+    private List<ItemDefinition> equippedItems = new ArrayList<>();
 
     private static final Area BankArea = new Area.Rectangular(new Coordinate(3206, 3219, 2), new Coordinate(3209, 3217, 2));
     private static final Area SwampArea = new Area.Polygonal(
@@ -56,13 +62,15 @@ public class ScrubFighter extends TreeBot {
         LogoutOnStop = true;
         setLoopDelay(100, 300);
         Execution.delayUntil(RuneScape::isLoggedIn, 100, 6000);
+        equippedItems.addAll(getPlayer().getEquipment());
+        System.out.println(equippedItems);
     }
 
     @Override
     public TreeTask createRootTask(){
         //Branches
         isbankopen = new IsBankOpen(this);
-        isfoodininventory = new IsFoodInInventory(this);
+        ishealthlow = new IsHealthLow(this);
         islootablenearby = new IsLootableNearby(this);
         isplayerincombat = new IsPlayerInCombat(this);
         isplayerinfightarea = new IsPlayerInFightArea(this);
@@ -78,7 +86,7 @@ public class ScrubFighter extends TreeBot {
         walktofightarea = new WalkToFightArea(this);
         withdrawfood = new WithdrawFood(this);
 
-        return new IsHealthLow(this);
+        return new IsFoodInInventory(this);
     }
 
     @Override
@@ -151,4 +159,11 @@ public class ScrubFighter extends TreeBot {
     public Area getBankArea() { return BankArea; }
 
     public String getTarget(){ return "Giant frog"; }
+
+    public Boolean getFoodReq(){ return true; }
 }
+
+/* NOTES / TO-DO
+-I've added get equipment into onStart() this will fail if not logged in and throw an error
+
+ */

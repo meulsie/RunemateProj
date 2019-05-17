@@ -1,7 +1,6 @@
-package com.meulsie.bots.ScrubFighter;
+package com.meulsie.bots.ScrubFighter.Branches;
 
-import com.meulsie.bots.ScrubFighter.Branches.IsFoodInInventory;
-import com.meulsie.bots.ScrubFighter.Branches.IsPlayerInCombat;
+import com.meulsie.bots.ScrubFighter.ScrubFighter;
 import com.runemate.game.api.hybrid.local.hud.interfaces.Health;
 import com.runemate.game.api.script.framework.tree.BranchTask;
 import com.runemate.game.api.script.framework.tree.TreeTask;
@@ -18,7 +17,7 @@ public class IsHealthLow extends BranchTask {
 
     private ScrubFighter bot;
 
-    IsHealthLow(ScrubFighter bot) {
+    public IsHealthLow(ScrubFighter bot) {
         this.bot = bot;
     }
 
@@ -34,6 +33,6 @@ public class IsHealthLow extends BranchTask {
 
     @Override
     public TreeTask successTask() {
-        return bot.isfoodininventory;
+        return bot.eatfood;
     }
 }
